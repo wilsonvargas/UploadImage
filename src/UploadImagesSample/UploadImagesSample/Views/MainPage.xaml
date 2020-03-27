@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:UploadImagesSample.ViewModels"
+             xmlns:iOS="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             iOS:Page.UseSafeArea="True"
+             mc:Ignorable="d"
+             Title="Upload Images"
+             x:Class="UploadImagesSample.Views.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="BackgroundColor" Value="#512DA8"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
+            <Button Text="Pick a picture" Style="{StaticResource ButtonStyle}" Command="{Binding PickPictureCommand}"/>
+            <Button Text="Take a picture" Style="{StaticResource ButtonStyle}" Command="{Binding TakePictureCommand}"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1">            
+            <Image Source="{Binding Image}" Aspect="AspectFit" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+        <Button Grid.Row="2" Text="Upload Image" Style="{StaticResource ButtonStyle}" Command="{Binding UploadImageCommand}"/>
+        <Label Grid.Row="3" Text="{Binding ResponseUrl}" HeightRequest="100" TextColor="Black"/>
+        <ActivityIndicator Grid.Row="3" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" VerticalOptions="CenterAndExpand" Color="#512DA8"/>
+        <Label Grid.Row="3" Text="{Binding ErrorMessage}" FontSize="Medium" TextColor="Red"/>
+    </Grid>
+</ContentPage>
